@@ -16,7 +16,7 @@ class PlaylistTile extends StatelessWidget {
       onTap: onPlay,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10.0),
-        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.tertiary, // Background color
           borderRadius: BorderRadius.circular(15.0), // Curved edges

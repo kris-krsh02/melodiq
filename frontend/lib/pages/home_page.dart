@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               PlaylistTile(
                 playlistName: 'Chill Vibes',
                 onPlay: () => {},
@@ -133,6 +133,10 @@ class _HomePageState extends State<HomePage> {
               ),
               PlaylistTile(
                 playlistName: 'Top Hits',
+                onPlay: () => {},
+              ),
+              PlaylistTile(
+                playlistName: 'Workout Mix',
                 onPlay: () => {},
               ),
               // Add more widgets below as needed

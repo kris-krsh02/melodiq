@@ -32,6 +32,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
         child: _pages.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: true,
+        showUnselectedLabels: false,
+        selectedFontSize: 16,
+        selectedIconTheme: IconThemeData(size: 36),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.music_note),
@@ -47,7 +51,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: Theme.of(context).colorScheme.primary,
+        unselectedItemColor:
+            Theme.of(context).colorScheme.primary.withOpacity(0.7),
         onTap: _onItemTapped,
       ),
     );
