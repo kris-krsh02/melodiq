@@ -55,9 +55,9 @@ class LoginPage extends StatelessWidget {
                     label: Text('Continue with Google'),
                     style: ElevatedButton.styleFrom(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+                          EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                       textStyle: TextStyle(
-                        fontSize: 18,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         fontFamily:
                             Theme.of(context).textTheme.bodyLarge?.fontFamily,
