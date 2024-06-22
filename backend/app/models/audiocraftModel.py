@@ -5,11 +5,7 @@ from audiocraft.models import MusicGen
 
 class AudioCraftModel:
     def __init__(self):
-        # Authenticate with Hugging Face (if required)
-        # from huggingface_hub import login
-        # login()
-
-        self.model = MusicGen.get_pretrained('facebook/musicgen-melody-large')
+        self.model = MusicGen.get_pretrained('facebook/musicgen-medium ')
 
     def generate_audio(self, text: str, duration: int = 30):
         self.model.set_generation_params(duration=duration)
