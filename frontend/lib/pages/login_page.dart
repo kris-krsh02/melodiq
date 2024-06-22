@@ -7,7 +7,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login Page'),
+        title: Text('Login Page'),
         automaticallyImplyLeading:
             false, // This will remove the back button if any.
       ),
@@ -18,7 +18,7 @@ class LoginPage extends StatelessWidget {
             Navigator.of(context)
                 .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
           },
-          child: const Text('Login with Google'),
+          child: Text('Login with Google'),
         ),
       ),
     );

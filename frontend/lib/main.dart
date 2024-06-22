@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'pages/home_page.dart';
 import 'pages/login_page.dart';
-import 'pages/music_player_page.dart';
-import 'pages/music_library_page.dart';
+import 'components/bottom_nav_bar.dart';
 
 void main() {
   runApp(const Melodiq());
@@ -20,10 +18,8 @@ class Melodiq extends StatelessWidget {
       ),
       initialRoute: '/login',
       routes: {
-        '/': (context) => const HomePage(),
+        '/': (context) => const BottomNavBar(),
         '/login': (context) => const LoginPage(),
-        '/music_player': (context) => const MusicPlayerPage(),
-        '/library': (context) => MusicLibraryPage(),
       },
     );
   }
