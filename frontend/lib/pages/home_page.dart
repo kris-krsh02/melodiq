@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import '../components/custom_app_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Page'),
-        automaticallyImplyLeading:
-            false, // This will remove the back button if any.
-      ),
-      body: const Center(
+    return const Scaffold(
+      appBar: CustomAppBar(),
+      body: Center(
         child: Text('Home Content Here'),
       ),
     );
