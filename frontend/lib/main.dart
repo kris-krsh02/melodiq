@@ -18,6 +18,19 @@ class MyMusicApp extends StatelessWidget {
     return MaterialApp(
       title: 'My Music App',
       theme: ThemeData(
+        colorScheme: ColorScheme(
+          primary: fontColor,
+          onPrimary: backgroundColor,
+          secondary: backgroundColor,
+          onSecondary: fontColor,
+          tertiary: buttonColor,
+          onTertiary: fontColor,
+          brightness: Brightness.light,
+          error: Colors.red,
+          onError: Colors.white,
+          surface: backgroundColor,
+          onSurface: fontColor,
+        ),
         fontFamily: GoogleFonts.jura().fontFamily,
         // Set the default background color
         scaffoldBackgroundColor: backgroundColor,

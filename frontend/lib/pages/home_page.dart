@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/components/playlist_tile.dart';
 import '../components/custom_app_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -119,6 +120,20 @@ class _HomePageState extends State<HomePage> {
                     textAlign: TextAlign.left,
                   ),
                 ],
+              ),
+
+              const SizedBox(height: 20),
+              PlaylistTile(
+                playlistName: 'Chill Vibes',
+                onPlay: () => {},
+              ),
+              PlaylistTile(
+                playlistName: 'Workout Mix',
+                onPlay: () => {},
+              ),
+              PlaylistTile(
+                playlistName: 'Top Hits',
+                onPlay: () => {},
               ),
               // Add more widgets below as needed
             ],
