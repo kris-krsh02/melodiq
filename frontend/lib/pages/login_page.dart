@@ -21,17 +21,21 @@ class LoginPage extends StatelessWidget {
                 Text(
                   'Welcome to melodIQ!',
                   style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyLarge?.color ??
+                        Colors.black,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
-                  textAlign: TextAlign.left, // Align text to the left
+                  textAlign: TextAlign.left,
+                  // Align text to the left
                 ),
                 SizedBox(height: 20),
                 Text(
                   'Unlock AI-Crafted Playlists to Enhance Your Focus and Productivity.',
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.grey,
+                    color: Theme.of(context).textTheme.bodyMedium?.color ??
+                        Colors.black,
                   ),
                   textAlign: TextAlign.left, // Align text to the left
                 ),
@@ -51,7 +55,7 @@ class LoginPage extends StatelessWidget {
                     label: Text('Continue with Google'),
                     style: ElevatedButton.styleFrom(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                          EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                       textStyle: TextStyle(
                         fontSize: 16,
                       ),

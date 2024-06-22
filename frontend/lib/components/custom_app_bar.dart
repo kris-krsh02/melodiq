@@ -11,8 +11,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Center(
-        child: Text('melodIQ'),
+      title: Center(
+        child: Text('melodIQ',
+            style:
+                TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color)),
       ),
       automaticallyImplyLeading: false,
     );
