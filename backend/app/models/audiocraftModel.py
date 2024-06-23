@@ -6,7 +6,7 @@ from audiocraft.models import MusicGen
 class AudioCraftModel:
     def __init__(self):
         self.model = MusicGen.get_pretrained('facebook/musicgen-large')
-        self.segment_duration = 15  # Fixed segment duration of 15 seconds
+        self.segment_duration = 20  # Fixed segment duration of 20 seconds
         self.sample_rate = 32000
         self.chunk_duration = 2 * 60 + 5  # 2 minutes and 5 seconds chunks for streaming
 
@@ -39,7 +39,7 @@ class AudioCraftModel:
 
             # Collect segments into 2-minute and 5-second chunks for streaming
             if total_generated_duration >= self.chunk_duration:
-                yield self._concatenate_segments(segments, overlap, chunk_counter)
+                yield self._concatenate_segments(segments, overlap, chunk_counter, text)
                 segments = segments[-1:]  # Keep only the last segment for the next chunk
                 total_generated_duration = overlap  # Reset duration count, including overlap
                 chunk_counter += 1
@@ -48,14 +48,14 @@ class AudioCraftModel:
         if segments:
             yield self._concatenate_segments(segments, overlap, chunk_counter)
 
-    def _concatenate_segments(self, segments, overlap, chunk_counter):
+    def _concatenate_segments(self, segments, overlap, chunk_counter, text):
         output = segments[0]
         for segment in segments[1:]:
             output = torch.cat([output[:, :, :-overlap * self.sample_rate], segment], 2)
         audio_output = output[0]
         output_dir = 'music'
         os.makedirs(output_dir, exist_ok=True)
-        filename = f"chunk_{chunk_counter}.wav"
+        filename = f"chunk_{chunk_counter}_{text}.wav"
         filepath = os.path.join(output_dir, filename)
         torchaudio.save(filepath, audio_output, sample_rate=self.sample_rate)
         return audio_output, filepath
