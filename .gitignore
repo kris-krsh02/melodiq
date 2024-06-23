@@ -1,4 +1,5 @@
 backend/app/music
+backend/app/generated_tracks
 
 # Ignore Flutter code within the frontend folder
 frontend/.dart_tool/

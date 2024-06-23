@@ -1,11 +1,16 @@
-from models.audiocraftModel import AudioCraftModel
+from fastapi import FastAPI, WebSocket
+from app.services.websocket_service import websocket_endpoint
 
-def main():
-    model = AudioCraftModel()
-    prompt = "Metal music with a fast tempo and electric guitar."
-    duration = 6 * 60 # seconds
-    for audio_output, filename in model.generate_long_audio(prompt, duration):
-        print(f"Generated segment saved as {filename}")
+app = FastAPI()
+
+@app.get("/")
+async def root():
+    return {"message": "FastAPI server is running"}
+
+@app.websocket("/ws/audio")
+async def websocket_audio(websocket: WebSocket):
+    await websocket_endpoint(websocket)
 
 if __name__ == "__main__":
-    main()
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
