@@ -58,6 +58,8 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
               },
               min: 0.0,
               max: 1.0,
+              inactiveColor: Colors.grey.withOpacity(
+                  0.3), // Color for the remaining duration with opacity
             ),
             Center(
               child: IconButton(
