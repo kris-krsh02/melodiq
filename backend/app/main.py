@@ -1,11 +1,10 @@
-from models.audiocraftModel import AudioCraftModel
+import asyncio
+from models.generationModel import GenerationModel
 
-def main():
-    model = AudioCraftModel()
+async def main():
+    model = GenerationModel()
     prompt = "Lofi hip hop beats with a synthwave twist."
-    duration = 6 * 60 # seconds
-    for audio_output, filename in model.generate_long_audio(prompt, duration):
-        print(f"Generated segment saved as {filename}")
+    await model.generate_track(prompt)
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

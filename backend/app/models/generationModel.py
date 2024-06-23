@@ -10,7 +10,7 @@ class GenerationModel:
         self.segment_duration = 15  # Fixed segment duration of 15 seconds
         self.sample_rate = 32000
 
-    async def generate_track(self, text: str, duration: int = 20 * 60):
+    async def generate_track(self, text: str, duration: int = 5 * 60):
         segments = []
         remaining_duration = duration
 
