@@ -1,10 +1,12 @@
-import asyncio
-from models.generationModel import GenerationModel
+from fastapi import FastAPI, WebSocket
+from app.services.websocket_service import websocket_endpoint
 
-async def main():
-    model = GenerationModel()
-    prompt = "Lofi hip hop beats with a synthwave twist."
-    await model.generate_track(prompt)
+app = FastAPI()
+
+@app.websocket("/ws/audio")
+async def websocket_audio(websocket: WebSocket):
+    await websocket_endpoint(websocket)
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

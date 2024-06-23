@@ -1,5 +1,5 @@
 import os
-from fastapi import WebSocket
+from fastapi import WebSocket, WebSocketDisconnect
 from app.models.library_model import LibraryModel
 from app.models.generation_model import GenerationModel
 import asyncio
@@ -30,6 +30,7 @@ async def websocket_endpoint(websocket: WebSocket):
 
 async def generate_and_store_track(prompt: str):
     filepath, filename = await generation_model.generate_track(prompt)
+    library_model.add_track(prompt, filename)  # Save the track to the library
     return filepath, filename
 
 async def send_audio_file(websocket: WebSocket, filename: str):
