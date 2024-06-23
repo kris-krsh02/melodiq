@@ -3,6 +3,10 @@ from app.services.websocket_service import websocket_endpoint
 
 app = FastAPI()
 
+@app.get("/")
+async def root():
+    return {"message": "FastAPI server is running"}
+
 @app.websocket("/ws/audio")
 async def websocket_audio(websocket: WebSocket):
     await websocket_endpoint(websocket)
