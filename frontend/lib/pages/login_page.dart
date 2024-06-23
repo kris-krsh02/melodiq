@@ -47,12 +47,7 @@ class LoginPage extends StatelessWidget {
                       Navigator.of(context).pushNamedAndRemoveUntil(
                           '/', (Route<dynamic> route) => false);
                     },
-                    icon: Image.asset(
-                      'assets/google_icon.png', // Make sure to add your Google icon in the assets folder
-                      height: 24,
-                      width: 24,
-                    ),
-                    label: Text('Continue with Google'),
+                    label: Text('Continue to melodIQ'),
                     style: ElevatedButton.styleFrom(
                       padding:
                           EdgeInsets.symmetric(horizontal: 30, vertical: 15),

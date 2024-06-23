@@ -16,7 +16,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   static final List<Widget> _pages = <Widget>[
     const MusicPlayerPage(),
     const HomePage(),
-    MusicLibraryPage(),
+    const MusicLibraryPage(),
   ];
 
   void _onItemTapped(int index) {

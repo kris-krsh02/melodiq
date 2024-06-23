@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/components/playlist_tile.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 import '../components/custom_app_bar.dart';
+import 'music_player_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,22 +12,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // Create a TextEditingController to manage the input
   final TextEditingController _textController = TextEditingController();
+  WebSocketChannel? _channel;
 
   @override
   void dispose() {
-    // Dispose of the controller when the widget is disposed
     _textController.dispose();
+    _channel?.sink.close();
     super.dispose();
   }
 
   void _submitInput() {
-    // Access the input text
     String userInput = _textController.text;
-    // For now, just print it. Later, you can pass this to an API
     print('User input: $userInput');
-    // TODO: Pass the userInput to an API
+    _connectWebSocket(userInput);
+  }
+
+  void _connectWebSocket(String userInput) {
+    _channel =
+        WebSocketChannel.connect(Uri.parse('ws://localhost:8000/ws/audio'));
+
+    _channel!.sink.add(userInput);
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => MusicPlayerPage(channel: _channel),
+    ));
   }
 
   @override
@@ -44,17 +54,16 @@ class _HomePageState extends State<HomePage> {
                     child: Text(
                       'Hey, Kristiana!',
                       style: TextStyle(fontSize: 36),
-                      maxLines: 2, // Set the maximum number of lines
-                      overflow: TextOverflow.ellipsis, // Handle overflow
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   GestureDetector(
                     onTap: () {
-                      // Navigate to the login page or handle logout
                       Navigator.of(context).pushNamed('/login');
                     },
                     child: CircleAvatar(
-                      radius: 25, // Set the size of the avatar
+                      radius: 25,
                       backgroundImage: NetworkImage(
                         'https://www.example.com/profile.jpg',
                       ),
@@ -74,29 +83,28 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 20),
               TextField(
-                controller: _textController, // Attach the controller
+                controller: _textController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Theme.of(context)
                       .elevatedButtonTheme
                       .style!
                       .backgroundColor!
-                      .resolve({}), // Background color
+                      .resolve({}),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0), // Curved edges
-                    borderSide: BorderSide.none, // Remove the border
+                    borderRadius: BorderRadius.circular(15.0),
+                    borderSide: BorderSide.none,
                   ),
-                  hintText: 'Enter your prompt', // Sample input text
+                  hintText: 'Enter your prompt',
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                 ),
-                maxLines: null, // Allow the text field to grow vertically
-                minLines: 1, // Minimum number of lines
+                maxLines: null,
+                minLines: 1,
               ),
               const SizedBox(height: 15),
               ElevatedButton(
-                onPressed:
-                    _submitInput, // Call the function when button is presse
+                onPressed: _submitInput,
                 style: ElevatedButton.styleFrom(
                     backgroundColor:
                         Theme.of(context).textTheme.bodyLarge?.color),
@@ -121,7 +129,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-
               const SizedBox(height: 10),
               PlaylistTile(
                 playlistName: 'Chill Vibes',
@@ -139,7 +146,6 @@ class _HomePageState extends State<HomePage> {
                 playlistName: 'Workout Mix',
                 onPlay: () => {},
               ),
-              // Add more widgets below as needed
             ],
           ),
         ),
