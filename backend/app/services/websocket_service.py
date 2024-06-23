@@ -11,18 +11,20 @@ async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     try:
         user_prompt = await websocket.receive_text()
+        print(f"Received user prompt: {user_prompt}")  # Debugging
         best_match = library_model.find_best_match(user_prompt)
 
         if best_match:
             filename = best_match['filename']
+            filepath = library_model.get_track_path(filename)
             await websocket.send_text(f"Playing pre-generated track: {filename}")
-            await send_audio_file(websocket, filename)
+            await send_audio_file(websocket, filepath)
         else:
             await websocket.send_text("No matching track found, generating new track...")
             filepath, filename = await generate_and_store_track(user_prompt)
             library_model.add_track(user_prompt, filename)
             await websocket.send_text(f"Generated and playing new track: {filename}")
-            await send_audio_file(websocket, filename)
+            await send_audio_file(websocket, filepath)
     except WebSocketDisconnect:
         print("Client disconnected")
     except Exception as e:
@@ -33,8 +35,7 @@ async def generate_and_store_track(prompt: str):
     library_model.add_track(prompt, filename)  # Save the track to the library
     return filepath, filename
 
-async def send_audio_file(websocket: WebSocket, filename: str):
-    filepath = os.path.join('generated_tracks', filename)
+async def send_audio_file(websocket: WebSocket, filepath: str):
     with open(filepath, 'rb') as audio_file:
         while chunk := audio_file.read(4096):  # Read in chunks of 4096 bytes
             await websocket.send_bytes(chunk)
