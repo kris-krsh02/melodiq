@@ -1,10 +1,11 @@
 import torch
 import torchaudio
+import os
 from audiocraft.models import MusicGen
 
 class AudioCraftModel:
     def __init__(self):
-        self.model = MusicGen.get_pretrained('melody_large')
+        self.model = MusicGen.get_pretrained('facebook/musicgen-large')
 
     def generate_long_audio(self, text: str, duration: int, topk: int = 250, topp: float = 0.0, temperature: float = 1.0, cfg_coef: float = 3.0, overlap: int = 5):
         topk = int(topk)
@@ -23,7 +24,7 @@ class AudioCraftModel:
                 top_p=topp,
                 temperature=temperature,
                 cfg_coef=cfg_coef,
-                duration=min(segment_duration, 30),
+                duration=min(segment_duration, 15),
             )
 
             if output is None:
@@ -40,5 +41,9 @@ class AudioCraftModel:
                 output = torch.cat([output[:, :, :-overlap * self.model.sample_rate], next_segment], 2)
 
             audio_output = output.detach().cpu().float()[0]
-            torchaudio.save(f"segment_{duration}.wav", audio_output, sample_rate=32000)
+            output_dir = 'music'
+            os.makedirs(output_dir, exist_ok=True)
+            filename = f"segment_{duration}.wav"
+            filename = os.path.join(output_dir, filename)
+            torchaudio.save(filename, audio_output, sample_rate=32000)
             yield audio_output, f"segment_{duration}.wav"
